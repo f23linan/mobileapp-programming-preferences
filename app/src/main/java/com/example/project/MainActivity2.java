@@ -16,15 +16,16 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.second_activity);
-        TextView textview2 = findViewById(R.id.prefButton);
-        myPreferenceRef = getPreferences(MODE_PRIVATE);
+
+        myPreferenceRef = getSharedPreferences("MyAppPreferenceString",MODE_PRIVATE);
         myPreferenceEditor = myPreferenceRef.edit();
+        TextView textview2 = findViewById(R.id.prefButton);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String name = extras.getString("name");
-            int number = extras.getInt("number");
             textview2.setText(name);
         }
 
@@ -35,20 +36,17 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void savePref(View v){
-        // Get the text
+
         EditText newPrefText=new EditText(this);
         newPrefText=(EditText)findViewById(R.id.settingseditview);
 
-        // Store the new preference
         myPreferenceEditor.putString("MyAppPreferenceString", newPrefText.getText().toString());
         myPreferenceEditor.apply();
 
-        // Display the new preference
         TextView prefTextRef=new TextView(this);
         prefTextRef=(TextView)findViewById(R.id.prefText);
         prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
 
-        // Clear the EditText
         newPrefText.setText("");
     }
 
