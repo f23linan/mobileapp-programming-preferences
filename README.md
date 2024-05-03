@@ -1,39 +1,47 @@
 
 # Rapport
+Det första som gjordes var att skapa en andra layout med en till java activity till layouten. I denna layout finns en textview, en edittext och en button.
+Denna nya layout kan öppnas genom en knapp på första sidan.
 
-**Skriv din rapport här!**
+I edittext på andra sidan kan man skriva in en text och den kommer att visas upp i textviewn och med hjälp av savpref kommer detta att sparas även om man stänger ner appen. 
+För att få den att även visas på första layouten används en onresume som gör att texten även visas i textviewn på första sidan. 
+```
+ public void savePref(View v){
 
-_Du kan ta bort all text som finns sedan tidigare_.
+        EditText newPrefText=new EditText(this);
+        newPrefText=(EditText)findViewById(R.id.settingseditview);
 
-## Följande grundsyn gäller dugga-svar:
+        myPreferenceEditor.putString("MyAppPreferenceString", newPrefText.getText().toString());
+        myPreferenceEditor.apply();
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
+        TextView prefTextRef=new TextView(this);
+        prefTextRef=(TextView)findViewById(R.id.prefText);
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
 
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
+        newPrefText.setText("");
+    }
+```
 
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+protected void onResume() {
+        super.onResume();
+        super.onResume();
+        myPreferenceRef = getSharedPreferences("MyAppPreferenceString", MODE_PRIVATE);
+        myPreferenceEditor = myPreferenceRef.edit();
+
+
+        TextView prefTextRef=new TextView(this);
+        prefTextRef=(TextView)findViewById(R.id.textview1);
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
+        Log.d("Hej", myPreferenceRef.getString("MyAppPreferenceString", "No preference found."));
     }
-}
+
 ```
 
 Bilder läggs i samma mapp som markdown-filen.
 
-![](android.png)
+![](firstimg.png)
+![](secondimg.png)
 
 Läs gärna:
 
